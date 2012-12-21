@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<display-name>Bethany Portal</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <context-param>
+        <param-name>QueriesConfig</param-name>
+        <param-value>/WEB-INF/config/dbqueries.properties</param-value>
+  </context-param>
+  <context-param>
+         <param-name>LogPath</param-name>
+         <param-value>/WEB-INF/log/BethanyLog.log</param-value>
+   </context-param>
+  					 
+    <filter>
+         <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+   
+
+     <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  <listener>
+    <listener-class>com.portal.common.config.ApplicationServletContextListener</listener-class>
+  </listener>
+  </web-app>

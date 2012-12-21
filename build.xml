@@ -1,0 +1,66 @@
+  <project name="Bethanyportal" default="main" basedir=".">
+    
+    <!-- Tell ant to use my environment variables -->
+      <property name="build.compiler"     value="modern"/>
+      <property name="build.dir"          value="./build/classes" />
+      <property name="buildeclipse.dir"   value="C:/sajan/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Bethanyportal/WEB-INF/classes" />
+      <property name="src.dir"            value="./src"/>
+      <property name="deploy.home"        value="C:/sajan/Deployment"/>
+      <property name="servlet.jar"        value="C:/Tomcat6/lib/servlet-api.jar"/>
+      <property name="war.file"           value="Bethany"/>
+      <property name="war.file.name"      value="${war.file}.war"/>
+      <property name="deploy.dir"         value="${deploy.home}/sop"/>
+  
+    <path id="project.class.path">
+        <fileset dir="./WebContent/WEB-INF/lib/">
+            <include name="**/*.jar"/>
+        </fileset>
+        <pathelement path="${src.dir}"/>
+        <pathelement path="${servlet.jar}"/>
+    </path>
+  
+      <target name="clean">
+          <delete dir="${buildeclipse.dir}" includeEmptyDirs="true" />
+      
+      </target>
+  
+  
+      <target name="prep">
+          <tstamp/>
+          <mkdir dir="${buildeclipse.dir}"/>
+      </target>
+      
+      <target name="compile">
+        <javac includeantruntime="false" srcdir="${src.dir}"
+                    destdir="${buildeclipse.dir}"
+                    debug="on"
+                deprecation="on">
+          <include name="**/*.java"/>
+          <classpath refid="project.class.path"/>
+        </javac>        
+      </target>
+  
+      <target name="cleanWebApp">
+      
+      </target>
+  
+      <target name="war">
+          <war warfile="${war.file.name}" webxml="./WebContent/WEB-INF/web.xml">
+                 <fileset dir="./" includes="**/*.*" excludes="*.war, **/*.nbattrs, web.xml, **/WEB-INF/**/*.*, **/project-files/**/*.*"/>
+                 <webinf  dir="./WebContent/WEB-INF"    includes="**/*" excludes="web.xml, **/*.jar, **/*.class"/>
+                 <lib     dir="./WebContent/WEB-INF/lib"/>
+                 <classes dir="${build.dir}" includes="**/*.*"/>
+                 <classes dir="${src.dir}" includes="**/*.properties"/>
+          </war>
+      </target>
+  
+      <target name="deploy">
+          <copy todir="${deploy.dir}">
+            <fileset dir="./" includes="${war.file.name}"/>
+          </copy>
+      
+      </target>
+ 
+    <target name="main" depends="compile"/>
+  
+  </project>

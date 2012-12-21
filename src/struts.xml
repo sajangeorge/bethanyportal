@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation"
+        value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources"
+        value="ApplicationResources" />
+    
+    <package name="default" extends="struts-default" namespace="/jsp">
+    
+    <interceptors>
+         <interceptor name="portalinterceptor" class="com.portal.common.resource.PortalInterceptor" />
+      </interceptors>
+      
+    <global-results>
+       <result name="systemerror">/jsp/error.jsp</result>
+       <result name="loginerror">/jsp/Login.jsp</result>
+    </global-results>
+    
+    <!-- Action Inserts(Sajan) -->
+        <action name="Addmembers">
+        <interceptor-ref name="portalinterceptor" />
+        <result>/jsp/Addmembers.jsp</result>
+        </action>
+        
+        <action name="login"
+            class="com.portal.user.action.LoginAction">
+            <result name="success">/jsp/Login.jsp</result>
+            <result name="error">/jsp/Login.jsp</result>
+        </action>
+        <action name="insert"
+            class="com.portal.user.action.MemberAction">
+            <result name="success">/jsp/Addmembers.jsp</result>
+            <result name="error">/jsp/Login.jsp</result>
+        </action>
+    <!-- End of Action Inserts(Sajan) -->
+    </package> 
+</struts>
